@@ -72,7 +72,7 @@ namespace :deploy do
       when :host01
         exec ip_address, "sudo cp infra/nginx/nginx.conf /etc/nginx/nginx.conf"
         exec ip_address, "sudo nginx -t"
-        exec ip_address, "sudo rm -f /var/log/nginx/*.log"
+        exec ip_address, "sudo rm -f /home/isucon/access.log"
         exec ip_address, "sudo systemctl restart nginx"
       else
         exec ip_address, "sudo systemctl stop nginx"
@@ -181,3 +181,14 @@ end
 task :all => [:setup, :deploy, :initialize, :record]
 
 task :default => :all
+
+desc "alp_install"
+task :alp_install do
+  HOSTS.each do |name, ip_address|
+
+    exec ip_address, "sudo apt-get install unzip"
+    exec ip_address, "wget https://github.com/tkuchiki/alp/releases/download/v1.0.21/alp_linux_amd64.zip"
+    exec ip_address, "unzip alp_linux_amd64.zip"
+    exec ip_address, "sudo install alp /usr/local/bin/alp"
+  end
+end
