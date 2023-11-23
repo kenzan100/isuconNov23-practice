@@ -60,7 +60,7 @@ namespace :deploy do
 
       # mysql
       case name
-      when :host01
+      when :host03
         exec ip_address, "sudo cp infra/mariadb/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf"
         exec ip_address, "sudo mysqld --verbose --help > /dev/null"
         exec ip_address, "echo -n | sudo tee /var/log/mysql/slow.log"
