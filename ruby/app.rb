@@ -629,23 +629,23 @@ module Isucondition
       end
 
       jia_isu_uuid = params[:jia_isu_uuid]
-      halt_error 400, 'missing: jia_isu_uuid' if !jia_isu_uuid || jia_isu_uuid.empty?
+      halt_error 401, 'missing: jia_isu_uuid' if !jia_isu_uuid || jia_isu_uuid.empty?
 
       begin
         json_params
       rescue JSON::ParserError
-        halt_error 400, 'bad request body'
+        halt_error 402, 'bad request body'
       end
-      halt_error 400, 'bad request body' unless json_params.kind_of?(Array)
-      halt_error 400, 'bad request body' if json_params.empty?
+      halt_error 403, 'bad request body' unless json_params.kind_of?(Array)
+      halt_error 404, 'bad request body' if json_params.empty?
 
       db_transaction do
         count = db.xquery('SELECT COUNT(*) AS `cnt` FROM `isu` WHERE `jia_isu_uuid` = ?', jia_isu_uuid).first
-        halt_error 404, 'not found: isu' if count.fetch(:cnt).zero?
+        halt_error 405, 'not found: isu' if count.fetch(:cnt).zero?
 
         json_params.each do |cond|
           timestamp = Time.at(cond.fetch(:timestamp))
-          halt_error 400, 'bad request body' unless valid_condition_format?(cond.fetch(:condition))
+          halt_error 406, 'bad request body' unless valid_condition_format?(cond.fetch(:condition))
 
           db.xquery(
             'INSERT INTO `isu_condition` (`jia_isu_uuid`, `timestamp`, `is_sitting`, `condition`, `message`) VALUES (?, ?, ?, ?, ?)',
