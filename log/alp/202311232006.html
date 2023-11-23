@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>alp</title>
+<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+</head>
+<body>
+<div id="gridContainer"></div>
+<script>
+new gridjs.Grid({
+  pagination: { limit: 100 },
+  columns: ["Count","1xx","2xx","3xx","4xx","5xx","Method","Uri","Min","Max","Sum","Avg","P90","P95","P99","Stddev","Min(Body)","Max(Body)","Sum(Body)","Avg(Body)",],
+  autoWidth: true,
+  style: {
+    table: {
+      'width': '100%'
+    }
+  },
+  data: [[248,0,113,0,135,0,"POST","/api/condition/[0-9a-z-]+$",0.052,0.104,12.66,0.051,0.104,0.104,0.104,0.051,0,14,140,0.565],[2,0,0,0,2,0,"GET","/assets/index.144d8ca8.css",3,3.004,6.004,3.002,3.004,3.004,3.004,0.002,0,0,0,0],[2,0,0,0,2,0,"GET","/assets/vendor.ee7444dd.js",3,3.004,6.004,3.002,3.004,3.004,3.004,0.002,0,0,0,0],[2,0,0,0,2,0,"GET","/assets/logo_orange.svg",3,3,6,3,3,3,3,0,0,0,0,0],[3,0,2,0,1,0,"GET","/",0,2.996,2.996,0.999,2.996,2.996,2.996,1.412,528,528,1056,352],[1,0,1,0,0,0,"POST","/initialize",0.252,0.252,0.252,0.252,0.252,0.252,0.252,0,19,19,19,19],[2,0,2,0,0,0,"GET","/assets/index.23dac98b.js",0,0.004,0.004,0.002,0.004,0.004,0.004,0.002,26667,26667,53334,26667],[2,0,2,0,0,0,"GET","/assets/favicon.d0f5f504.svg",0,0.004,0.004,0.002,0.004,0.004,0.004,0.002,592,592,1184,592],[2,0,2,0,0,0,"GET","/assets/logo_white.svg",0,0,0,0,0,0,0,0,3285,3285,6570,3285]],
+  resizable: true,
+  sort: {
+    multiColumn: true
+  },
+  search: true,
+}).render(document.getElementById("gridContainer"));
+</script>
+</body>
+</html>
