@@ -87,6 +87,7 @@ namespace :deploy do
         exec ip_address, "#{BUNDLE} config set --local jobs $(nproc)", cwd: RUBY_APP_DIR
         exec ip_address, "#{BUNDLE} install", cwd: RUBY_APP_DIR
 
+        exec ip_address, "sudo systemctl disable --now isucondition.go.service"
         exec ip_address, "sudo systemctl stop isucondition.go.service"
 
         exec ip_address, "sudo systemctl stop #{APP_SERVICE_NAME}"
@@ -191,5 +192,14 @@ task :alp_install do
     exec ip_address, "wget https://github.com/tkuchiki/alp/releases/download/v1.0.21/alp_linux_amd64.zip"
     exec ip_address, "unzip alp_linux_amd64.zip"
     exec ip_address, "sudo install alp /usr/local/bin/alp"
+  end
+end
+
+desc "slp_install"
+task :slp_install do
+  HOSTS.each do |name, ip_address|
+    exec ip_address, "wget https://github.com/tkuchiki/slp/releases/download/v0.2.0/slp_linux_amd64.zip"
+    exec ip_address, "unzip slp_linux_amd64.zip"
+    exec ip_address, "sudo install slp /usr/local/bin/slp"
   end
 end
