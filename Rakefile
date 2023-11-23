@@ -71,7 +71,7 @@ namespace :deploy do
 
       # nginx
       case name
-      when :host01
+      when :host01, :host02
         exec ip_address, "sudo cp infra/nginx/nginx.conf  /etc/nginx/sites-enabled/isucondition.conf"
         exec ip_address, "sudo nginx -t"
         exec ip_address, "sudo rm -f /home/isucon/access.log"
