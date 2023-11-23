@@ -62,6 +62,7 @@ namespace :deploy do
       when :host01
         exec ip_address, "sudo cp infra/mariadb/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf"
         exec ip_address, "sudo mysqld --verbose --help > /dev/null"
+        exec ip_address, "echo -n > /home/isucon/slow.log"
         exec ip_address, "sudo systemctl restart mariadb"
       else
         exec ip_address, "sudo systemctl stop mariadb"
