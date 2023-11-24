@@ -33,6 +33,18 @@ GITHUB_ISSUE_ID = 1
 
 BUNDLE = "/home/isucon/local/ruby/bin/bundle"
 
+ALP_MATCHING_GROUP = [
+  "/api/condition/[0-9a-z\-]+$",
+  "/api/condition/[0-9a-z\-]/icon$",
+  "/api/condition/[0-9a-z\-]/graph$",
+  "/api/isu/[0-9a-z\-]+$",
+  "/api/isu/[0-9a-z\-]+/icon$",
+  "/api/isu/[0-9a-z\-]+/graph$",
+  "/isu/[0-9a-z\-]+/condition$",
+  "/isu/[0-9a-z\-]+/graph$",
+  "/isu/[0-9a-z\-]+$"
+].join(',')
+
 def exec(ip_address, command, cwd: CURRENT_DIR)
   sh %Q(ssh isucon@#{ip_address} 'cd #{cwd} && #{command}')
 end
@@ -210,7 +222,7 @@ task :bench do
   exec BENCH_IP, "sudo systemctl stop jiaapi-mock.service"
   timestamp = Time.now.strftime('%Y%m%d%H%M')
   exec BENCH_IP, "./bench -all-addresses isucondition-1.t.isucon.dev,isucondition-2.t.isucon.dev -target isucondition-1.t.isucon.dev:443 -tls -jia-service-url http://54.178.117.30:5001", cwd: "/home/isucon/bench"
-  exec HOSTS[:host01], "alp ltsv --file=/home/isucon/access.log -r --sort=sum -m '/api/condition/[0-9a-z\-]+$,/api/condition/[0-9a-z\-]/icon$,/api/condition/[0-9a-z\-]/graph$,/api/isu/[0-9a-z\-]+$,/api/isu/[0-9a-z\-]+/icon$,/api/isu/[0-9a-z\-]+/graph$,/isu/[0-9a-z\-]+/condition$,/isu/[0-9a-z\-]+/graph$,/isu/[0-9a-z\-]+$' --format html > /tmp/alp/#{timestamp}.html"
+  exec HOSTS[:host01], "alp ltsv --file=/home/isucon/access.log -r --sort=sum -m '#{ALP_MATCHING_GROUP}' --format html > /tmp/alp/#{timestamp}.html"
   sh "scp #{HOSTS[:host01]}:/tmp/alp/#{timestamp}.html ./log/alp/#{timestamp}.html"
   exec HOSTS[:host01], "sudo cat /var/log/mysql/slow.log | slp my --format html > /tmp/slp/#{timestamp}.html"
   sh "scp #{HOSTS[:host01]}:/tmp/slp/#{timestamp}.html ./log/slp/#{timestamp}.html"
