@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>alp</title>
+<link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+<script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+</head>
+<body>
+<div id="gridContainer"></div>
+<script>
+new gridjs.Grid({
+  pagination: { limit: 100 },
+  columns: ["Count","1xx","2xx","3xx","4xx","5xx","Method","Uri","Min","Max","Sum","Avg","P90","P95","P99","Stddev","Min(Body)","Max(Body)","Sum(Body)","Avg(Body)",],
+  autoWidth: true,
+  style: {
+    table: {
+      'width': '100%'
+    }
+  },
+  data: [[2,0,2,0,0,0,"POST","/initialize",0.328,0.328,0.656,0.328,0.328,0.328,0.328,0,19,19,38,19],[4,0,4,0,0,0,"GET","/",0,0.012,0.028,0.007,0.012,0.012,0.012,0.004,528,528,2112,528],[3,0,0,0,3,0,"GET","/assets/index.144d8ca8.css",0,0,0,0,0,0,0,0,162,564,888,296],[3,0,0,0,3,0,"GET","/assets/favicon.d0f5f504.svg",0,0,0,0,0,0,0,0,162,564,888,296],[3,0,0,0,3,0,"GET","/assets/index.23dac98b.js",0,0,0,0,0,0,0,0,162,564,888,296],[3,0,0,0,3,0,"GET","/assets/vendor.ee7444dd.js",0,0,0,0,0,0,0,0,162,564,888,296],[3,0,0,0,3,0,"GET","/assets/logo_white.svg",0,0,0,0,0,0,0,0,162,564,888,296],[3,0,0,0,3,0,"GET","/assets/logo_orange.svg",0,0,0,0,0,0,0,0,162,564,888,296]],
+  resizable: true,
+  sort: {
+    multiColumn: true
+  },
+  search: true,
+}).render(document.getElementById("gridContainer"));
+</script>
+</body>
+</html>
