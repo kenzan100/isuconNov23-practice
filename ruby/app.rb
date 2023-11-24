@@ -643,27 +643,19 @@ module Isucondition
         count = db.xquery('SELECT COUNT(*) AS `cnt` FROM `isu` WHERE `jia_isu_uuid` = ?', jia_isu_uuid).first
         halt_error 404, 'not found: isu' if count.fetch(:cnt).zero?
 
-        insert_params = json_params.map do |json_param|
-          timestamp = Time.at(json_param.fetch(:timestamp))
-          halt_error 400, 'bad request body' unless valid_condition_format?(json_param.fetch(:condition))
+        json_params.each do |cond|
+          timestamp = Time.at(cond.fetch(:timestamp))
+          halt_error 400, 'bad request body' unless valid_condition_format?(cond.fetch(:condition))
 
-          [
+          db.xquery(
+            'INSERT INTO `isu_condition` (`jia_isu_uuid`, `timestamp`, `is_sitting`, `condition`, `message`) VALUES (?, ?, ?, ?, ?)',
             jia_isu_uuid,
             timestamp,
-            json_param.fetch(:is_sitting),
-            json_param.fetch(:condition),
-            json_param.fetch(:message),
-          ]
+            cond.fetch(:is_sitting),
+            cond.fetch(:condition),
+            cond.fetch(:message),
+          )
         end
-
-        statement = <<~SQL
-          INSERT INTO `isu_condition` (`jia_isu_uuid`, `timestamp`, `is_sitting`, `condition`, `message`)
-          VALUES #{insert_params.map { |_| '(?, ?, ?, ?, ?)' }.join(', ')}
-        SQL
-        db.xquery(
-          statement,
-          *insert_params.flatten,
-        )
       end
 
       status 202
