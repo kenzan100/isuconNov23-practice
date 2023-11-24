@@ -209,7 +209,7 @@ desc "bench"
 task :bench do
   exec BENCH_IP, "sudo systemctl stop jiaapi-mock.service"
   timestamp = Time.now.strftime('%Y%m%d%H%M')
-  exec BENCH_IP, "./bench -all-addresses 3.112.44.40 -target 3.112.44.40:443 -tls -jia-service-url http://13.230.22.235:5001", cwd: "/home/isucon/bench"
+  exec BENCH_IP, "./bench -all-addresses 13.231.210.217 -target 13.231.210.217:443 -tls -jia-service-url http://54.178.117.30:5001", cwd: "/home/isucon/bench"
   exec HOSTS[:host01], "alp ltsv --file=/home/isucon/access.log -r --sort=sum -m '/api/condition/[0-9a-z\-]+$,/api/condition/[0-9a-z\-]/icon$,/api/condition/[0-9a-z\-]/graph$,/api/isu/[0-9a-z\-]+$,/api/isu/[0-9a-z\-]+/icon$,/api/isu/[0-9a-z\-]+/graph$,/isu/[0-9a-z\-]+/condition$,/isu/[0-9a-z\-]+/graph$,/isu/[0-9a-z\-]+$' --format html > /tmp/alp/#{timestamp}.html"
   sh "scp #{HOSTS[:host01]}:/tmp/alp/#{timestamp}.html ./log/alp/#{timestamp}.html"
   exec HOSTS[:host01], "sudo cat /var/log/mysql/slow.log | slp my --format html > /tmp/slp/#{timestamp}.html"
