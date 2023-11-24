@@ -225,7 +225,7 @@ task :bench do
   exec HOSTS[:host01], "alp ltsv --file=/home/isucon/access.log -r --sort=sum -m '#{ALP_MATCHING_GROUP}' --format html > /tmp/alp/#{timestamp}.html"
   sh "scp #{HOSTS[:host01]}:/tmp/alp/#{timestamp}.html ./log/alp/#{timestamp}.html"
   exec HOSTS[:host01], "sudo cat /var/log/mysql/slow.log | slp my --format html > /tmp/slp/#{timestamp}.html"
-  sh "scp #{HOSTS[:host01]}:/tmp/slp/#{timestamp}.html ./log/slp/#{timestamp}.html"
+  sh "scp #{HOSTS[:host03]}:/tmp/slp/#{timestamp}.html ./log/slp/#{timestamp}.html"
   sh "git add -A"
   sh "git commit -m 'bench #{timestamp}'"
   sh "git push origin main"
