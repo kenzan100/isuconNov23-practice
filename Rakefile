@@ -222,9 +222,9 @@ task :bench do
   exec BENCH_IP, "sudo systemctl stop jiaapi-mock.service"
   timestamp = Time.now.strftime('%Y%m%d%H%M')
   exec BENCH_IP, "./bench -all-addresses isucondition-1.t.isucon.dev,isucondition-2.t.isucon.dev -target isucondition-1.t.isucon.dev:443 -tls -jia-service-url http://54.178.117.30:5001", cwd: "/home/isucon/bench"
-  exec HOSTS[:host01], "alp ltsv --file=/home/isucon/access.log -r --sort=sum -m '#{ALP_MATCHING_GROUP}' --format html > /tmp/alp/#{timestamp}.html"
+  exec HOSTS[:host01], "alp ltsv --file=/home/isucon/access.log -r --sort=sum -m '#{ALP_MATCHING_GROUP} --format html > /tmp/alp/#{timestamp}.html"
   sh "scp #{HOSTS[:host01]}:/tmp/alp/#{timestamp}.html ./log/alp/#{timestamp}.html"
-  exec HOSTS[:host01], "sudo cat /var/log/mysql/slow.log | slp my --format html > /tmp/slp/#{timestamp}.html"
+  exec HOSTS[:host03], "sudo cat /var/log/mysql/slow.log | slp my --format html > /tmp/slp/#{timestamp}.html"
   sh "scp #{HOSTS[:host03]}:/tmp/slp/#{timestamp}.html ./log/slp/#{timestamp}.html"
   sh "git add -A"
   sh "git commit -m 'bench #{timestamp}'"
