@@ -1,0 +1,18 @@
+12:19:15.369064 ===> PREPARE
+12:19:20.418076 ERR: prepare: status code: 期待する HTTP ステータスコード以外が返却されました (expected: 200): 500 (POST: /api/auth)
+12:19:20.450556 ERR: prepare: status code: 期待する HTTP ステータスコード以外が返却されました (expected: 200): 500 (POST: /api/auth)
+12:19:20.507224 ERR: prepare: critical: アプリケーション互換性チェックに失敗しました
+12:19:20.507372 SCORE: 00.StartBenchmark       : 0
+12:19:20.507383 SCORE: 01.GraphGood            : 0
+12:19:20.507388 SCORE: 02.GraphNormal          : 0
+12:19:20.507392 SCORE: 03.GraphBad             : 0
+12:19:20.507397 SCORE: 04.GraphWorst           : 0
+12:19:20.507402 SCORE: 05.TodayGraphGood       : 0
+12:19:20.507407 SCORE: 06.TodayGraphNormal     : 0
+12:19:20.507413 SCORE: 07.TodayGraphBad        : 0
+12:19:20.507418 SCORE: 08.TodayGraphWorst      : 0
+12:19:20.507423 SCORE: 09.ReadInfoCondition    : 0
+12:19:20.507428 SCORE: 10.ReadWarningCondition : 0
+12:19:20.507432 SCORE: 11.ReadCriticalCondition: 0
+12:19:20.507506 score: 0(0 - 0) : Critical error
+12:19:20.507512 deduction: 0 / timeout: 0
